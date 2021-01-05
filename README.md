@@ -2,4 +2,4 @@
 
 JavaScript Primer で学習した内容をコミットする
 
-- [https://jsprimer.net/](https://jsprimer.net/)
+[JavaScript Primer - 迷わないための入門書 #jsprimer](https://jsprimer.net/)
