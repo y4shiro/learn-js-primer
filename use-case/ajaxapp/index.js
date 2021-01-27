@@ -1,22 +1,23 @@
 function main() {
-  fetchUserInfo("js-primer-example");
+  fetchUserInfo("js-primer-example")
+    .catch((error) => {
+      // Promiseチェーンの中で発生したエラーを受け取る
+      console.error(`エラーが発生しました (${error})`);
+    });
 }
 
 function fetchUserInfo(userId) {
-  fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
+  return fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
     .then(response => {
-      console.log(response.status);
-      // エラーレスポンスが返されたことを検知する
       if (!response.ok) {
-        console.error("エラーレスポンス", response);
+        // エラーレスポンスからRejectedなPromiseを作成して返す
+        return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
       } else {
         return response.json().then(userInfo => {
           const view = createView(userInfo);
           displayView(view);
         });
       }
-    }).catch(error => {
-      console.error(error);
     });
 }
 
