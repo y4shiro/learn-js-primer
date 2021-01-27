@@ -1,7 +1,11 @@
 function main() {
   fetchUserInfo("js-primer-example")
+    // ここでは JSON オブジェクトで解決される Promise
+    .then((userInfo) => createView(userInfo))
+    // ここでは HTML 文字列で解決される Promise
+    .then((view) => displayView(view))
+    // Promiseチェーンの中で発生したエラーを受け取る
     .catch((error) => {
-      // Promiseチェーンの中で発生したエラーを受け取る
       console.error(`エラーが発生しました (${error})`);
     });
 }
@@ -10,13 +14,9 @@ function fetchUserInfo(userId) {
   return fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
     .then(response => {
       if (!response.ok) {
-        // エラーレスポンスからRejectedなPromiseを作成して返す
         return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
       } else {
-        return response.json().then(userInfo => {
-          const view = createView(userInfo);
-          displayView(view);
-        });
+        return response.json();
       }
     });
 }
