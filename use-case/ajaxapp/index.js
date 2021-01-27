@@ -28,21 +28,21 @@ function fetchUserInfo(userId) {
 }
 
 function escapeSpecialChars(str) {
-    return str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function escapeHTML(strings, ...values) {
-    return strings.reduce((result, str, i) => {
-        const value = values[i - 1];
-        if (typeof value === "string") {
-            return result + escapeSpecialChars(value) + str;
-        } else {
-            return result + String(value) + str;
-        }
-    });
+  return strings.reduce((result, str, i) => {
+    const value = values[i - 1];
+    if (typeof value === "string") {
+      return result + escapeSpecialChars(value) + str;
+    } else {
+      return result + String(value) + str;
+    }
+  });
 }
